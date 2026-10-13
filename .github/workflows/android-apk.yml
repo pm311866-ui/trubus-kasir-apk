@@ -1,5 +1,4 @@
 
-
 name: Build TRUBUS APK
 
 on:
@@ -61,11 +60,16 @@ jobs:
                   jvmTarget = '17'
               }"""
           if "android {" not in s:
-              raise SystemExit("Blok android tidak ditemukan di app/build.gradle")
+              raise SystemExit("Blok android tidak ditemukan")
           s = s.replace("android {", block, 1)
           p.write_text(s)
-          print("Target Java dan Kotlin disetel ke 17")
           PY
+
+      - name: Fix EditText singleLine
+        run: |
+          FILE="$PROJECT_DIR/app/src/main/java/id/trubus/kasir/MainActivity.kt"
+          sed -i 's/singleLine = true/setSingleLine(true)/' "$FILE"
+          grep -n 'setSingleLine(true)' "$FILE"
 
       - name: Build debug APK
         run: |
