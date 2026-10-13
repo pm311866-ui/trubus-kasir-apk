@@ -37,7 +37,7 @@ jobs:
       - name: Accept Android SDK licenses
         run: |
           mkdir extracted
-          unzip -q trubus-kasir-apk.zip -d extracted
+          unzip -q TRUBUS-Kasir-Inventaris-source.zip -d extracted
           SETTINGS_FILE="$(find extracted -name settings.gradle -type f -print -quit)"
           if [ -z "$SETTINGS_FILE" ]; then
             echo "settings.gradle tidak ditemukan"
